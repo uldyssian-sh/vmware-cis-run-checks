@@ -2,7 +2,7 @@
 
 **Name**: vmware-cis-run-checks.ps1  
 **Purpose**: Read-only CIS / Hardening style checks for VMware vSphere 8.  
-**Author**: Paladin alias LT  
+**Author**: LT  
 **Version**: 1.0  
 **Target**: VMware vSphere 8  
 
