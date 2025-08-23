@@ -4,7 +4,6 @@
 **Purpose**: Read-only CIS / Hardening style checks for VMware vSphere 8.  
 **Author**: LT  
 **Version**: 1.0  
-**Target**: VMware vSphere 8  
 
 ---
 
