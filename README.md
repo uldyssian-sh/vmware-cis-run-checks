@@ -2,7 +2,7 @@
 
 **Name**: vmware-cis-run-checks.ps1  
 **Purpose**: Read-only CIS / Hardening style checks for VMware vSphere 8.  
-**Author**: LT  
+**Author**: LT - [GitHub Profile](https://github.com/uldyssian-sh)  
 **Version**: 1.0  
 
 ---
