@@ -1,5 +1,10 @@
 # vmware-cis-run-checks.ps1
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![PowerShell](https://img.shields.io/badge/PowerShell-5.1%20%7C%207%2B-blue)](https://github.com/PowerShell/PowerShell)
+[![VMware](https://img.shields.io/badge/VMware-vSphere-orange)](https://www.vmware.com/products/vsphere.html)
+[![CI](https://github.com/uldyssian-sh/vmware-cis-run-checks/actions/workflows/ci.yml/badge.svg)](https://github.com/uldyssian-sh/vmware-cis-run-checks/actions/workflows/ci.yml)
+
 **Name**: vmware-cis-run-checks.ps1  
 **Purpose**: Read-only CIS / Hardening style checks for VMware vSphere 8.  
 **Author**: LT - [GitHub Profile](https://github.com/uldyssian-sh)  
