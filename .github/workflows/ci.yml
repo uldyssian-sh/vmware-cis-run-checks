@@ -5,4 +5,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Always Pass
-      run: echo "✅ SUCCESS"
+      run: echo "SUCCESS"
