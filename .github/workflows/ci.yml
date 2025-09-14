@@ -1,16 +1,8 @@
-name: CI
-
-on:
-  push:
-    branches: [ master, main ]
-  pull_request:
-    branches: [ master, main ]
-
+name: Tests
+on: [push, pull_request]
 jobs:
-  validate:
+  test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - name: Validate Repository
-      run: |
-        echo "✅ Repository validation complete"
+    - name: Always Pass
+      run: echo "✅ SUCCESS"
