@@ -5,9 +5,9 @@
 [![VMware](https://img.shields.io/badge/VMware-vSphere-orange)](https://www.vmware.com/products/vsphere.html)
 [![CI](https://github.com/uldyssian-sh/vmware-cis-run-checks/actions/workflows/ci.yml/badge.svg)](https://github.com/uldyssian-sh/vmware-cis-run-checks/actions/workflows/ci.yml)
 
-**Name**: vmware-cis-run-checks.ps1  
-**Purpose**: Read-only CIS / Hardening style checks for VMware vSphere 8.  
-**Author**: LT - [GitHub Profile](https://github.com/uldyssian-sh)  
+**Name**: vmware-cis-run-checks.ps1
+**Purpose**: Read-only CIS / Hardening style checks for VMware vSphere 8.
+**Author**: LT - [GitHub Profile](https://github.com/uldyssian-sh)
 **Version**: 1.0
 
 ## 🏗️ Architecture
@@ -32,19 +32,19 @@
 │  │              (PASS/FAIL/INFO/NotImplemented)           │    │
 │  └─────────────────────────────────────────────────────────┘    │
 └─────────────────────────────────────────────────────────────┘
-```  
+```
 
 ---
 
 ## Overview
 
-This script runs **read-only compliance checks** against VMware vSphere 8.  
-It is based on common **CIS Benchmarks** and VMware’s **Hardening Guide** recommendations.  
+This script runs **read-only compliance checks** against VMware vSphere 8.
+It is based on common **CIS Benchmarks** and VMware’s **Hardening Guide** recommendations.
 
-- ✅ **No configuration changes** are made.  
-- ✅ **All results are printed to the console**.  
-- ✅ Provides **per-check results** and **summaries**.  
-- ✅ Marks items as `PASS`, `FAIL`, `INFO`, or `NotImplemented`.  
+- ✅ **No configuration changes** are made.
+- ✅ **All results are printed to the console**.
+- ✅ Provides **per-check results** and **summaries**.
+- ✅ Marks items as `PASS`, `FAIL`, `INFO`, or `NotImplemented`.
 
 ---
 
@@ -55,17 +55,17 @@ This repository’s own content (README, file list, structure) is licensed under
 
 ## Disclaimer
 
-This script is provided "as is", without any warranty of any kind.  
-Use it at your own risk. You are solely responsible for reviewing, testing, and implementing it in your own environment.  
+This script is provided "as is", without any warranty of any kind.
+Use it at your own risk. You are solely responsible for reviewing, testing, and implementing it in your own environment.
 
 ---
 
 ## Requirements
 
-- PowerShell 7+ (or Windows PowerShell 5.1)  
-- [VMware.PowerCLI](https://developer.vmware.com/powercli) module version 13+  
+- PowerShell 7+ (or Windows PowerShell 5.1)
+- [VMware.PowerCLI](https://developer.vmware.com/powercli) module version 13+
 
-Install PowerCLI if not already installed:  
+Install PowerCLI if not already installed:
 
 ```powershell
 Install-Module -Name VMware.PowerCLI -Scope CurrentUser

@@ -2,7 +2,7 @@
 
 ## Table of Contents
 - Installation Guide
-- User Guide  
+- User Guide
 - Troubleshooting
 
 ## Quick Links
