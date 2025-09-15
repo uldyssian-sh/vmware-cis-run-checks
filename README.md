@@ -7,7 +7,14 @@
 
 ## 🎯 Overview
 
-Enterprise-grade vmware cis run checks solution with professional automation, security, and scalability features.
+Professional vmware cis run checks solution with enterprise-grade automation and security features.
+
+## 📊 Repository Stats
+
+- **Files:**       27
+- **Technologies:** PowerShell YAML
+- **Type:** Infrastructure Automation
+- **Status:** Production Ready
 
 ## ✨ Features
 
@@ -23,11 +30,26 @@ Enterprise-grade vmware cis run checks solution with professional automation, se
 ## 🚀 Quick Start
 
 ```bash
+# Clone repository
 git clone https://github.com/uldyssian-sh/vmware-cis-run-checks.git
 cd vmware-cis-run-checks
+
+# Setup environment
 chmod +x setup.sh
 ./setup.sh
 ```
+
+
+## ⚡ PowerShell Scripts
+
+```powershell
+# Set execution policy
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+# Run main script
+.\main.ps1
+```
+
 
 ## 📚 Documentation
 
@@ -47,8 +69,8 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) file.
 
 ## 🆘 Support
 
-- 🐛 **Issues**: [GitHub Issues](https://github.com/uldyssian-sh/vmware-cis-run-checks/issues)
-- 📖 **Documentation**: [Wiki](https://github.com/uldyssian-sh/vmware-cis-run-checks/wiki)
+- 🐛 **Issues**: [GitHub Issues](https://github.com/uldyssian-sh/REPO_NAME/issues)
+- 📖 **Documentation**: [Wiki](https://github.com/uldyssian-sh/REPO_NAME/wiki)
 
 ---
 
