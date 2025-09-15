@@ -49,7 +49,8 @@ It is based on common **CIS Benchmarks** and VMware’s **Hardening Guide** reco
 ---
 
 ## License for This Repository
-This repository’s own content (README, file list, structure) is licensed under the MIT License. See LICENSE for details.
+This repository’s own content (README, file list, structure) is licensed under the MIT License.
+See LICENSE for details.
 
 ---
 
