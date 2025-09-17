@@ -1,77 +1,189 @@
-# vmware cis run checks
+# vmware-cis-run-checks
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub license](https://img.shields.io/github/license/uldyssian-sh/vmware-cis-run-checks)](https://github.com/uldyssian-sh/vmware-cis-run-checks/blob/main/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/uldyssian-sh/vmware-cis-run-checks)](https://github.com/uldyssian-sh/vmware-cis-run-checks/issues)
 [![GitHub stars](https://img.shields.io/github/stars/uldyssian-sh/vmware-cis-run-checks)](https://github.com/uldyssian-sh/vmware-cis-run-checks/stargazers)
-[![Security](https://img.shields.io/badge/Security-Enterprise-blue.svg)](SECURITY.md)
+[![GitHub forks](https://img.shields.io/github/forks/uldyssian-sh/vmware-cis-run-checks)](https://github.com/uldyssian-sh/vmware-cis-run-checks/network)
+[![CI](https://github.com/uldyssian-sh/vmware-cis-run-checks/workflows/CI/badge.svg)](https://github.com/uldyssian-sh/vmware-cis-run-checks/actions)
 
-## 🎯 Overview
+## 📋 Overview
 
-Professional vmware cis run checks solution with enterprise-grade automation and security features.
+Enterprise VMware infrastructure management and automation tools
 
-## 📊 Repository Stats
-
-- **Files:**       27
-- **Technologies:** PowerShell YAML
-- **Type:** Infrastructure Automation
-- **Status:** Production Ready
+**Repository Type:** VMware  
+**Technology Stack:** PowerCLI, vSphere API, PowerShell, Python
 
 ## ✨ Features
 
-- 🏗️ **Enterprise Architecture** - Production-ready infrastructure
-- 🔒 **Zero-Trust Security** - Comprehensive security controls
-- 🚀 **CI/CD Automation** - Automated deployment pipelines
-- 📊 **Monitoring & Observability** - Complete visibility
-- 🤖 **AI Integration** - GitHub Copilot & Amazon Q
-- 🔄 **Self-Healing** - Automatic error recovery
-- 📈 **Performance Optimized** - High-performance configurations
-- 🛡️ **Compliance Ready** - SOC2, GDPR, HIPAA standards
+- 🚀 **High Performance** - Optimized for enterprise environments
+- 🔒 **Security First** - Built with security best practices
+- 📊 **Monitoring** - Comprehensive logging and metrics
+- 🔧 **Automation** - Fully automated deployment and management
+- 📚 **Documentation** - Extensive documentation and examples
+- 🧪 **Testing** - Comprehensive test coverage
+- 🔄 **CI/CD** - Automated testing and deployment pipelines
 
 ## 🚀 Quick Start
 
+### Prerequisites
+
+- Python 3.8+ (for Python projects)
+- Docker (optional)
+- Git
+
+### Installation
+
 ```bash
-# Clone repository
+# Clone the repository
 git clone https://github.com/uldyssian-sh/vmware-cis-run-checks.git
 cd vmware-cis-run-checks
 
-# Setup environment
-chmod +x setup.sh
-./setup.sh
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the application
+python main.py
 ```
 
+### Docker Deployment
 
-## ⚡ PowerShell Scripts
+```bash
+# Build Docker image
+docker build -t vmware-cis-run-checks .
 
-```powershell
-# Set execution policy
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-
-# Run main script
-.\main.ps1
+# Run container
+docker run -p 8080:8080 vmware-cis-run-checks
 ```
 
-
-## 📚 Documentation
+## 📖 Documentation
 
 - [Installation Guide](docs/installation.md)
-- [Configuration Reference](docs/configuration.md)
-- [API Documentation](docs/api.md)
+- [Configuration](docs/configuration.md)
+- [API Reference](docs/api.md)
+- [Examples](examples/)
 - [Troubleshooting](docs/troubleshooting.md)
-- [Security Policy](SECURITY.md)
+
+## 🔧 Configuration
+
+Configuration can be done through:
+
+1. **Environment Variables**
+2. **Configuration Files**
+3. **Command Line Arguments**
+
+Example configuration:
+
+```yaml
+# config.yml
+app:
+  name: vmware-cis-run-checks
+  version: "1.0.0"
+  debug: false
+
+logging:
+  level: INFO
+  format: json
+```
+
+## 📊 Usage Examples
+
+### Basic Usage
+
+```python
+from vmware-cis-run-checks import main
+
+# Initialize application
+app = main.Application()
+
+# Run application
+app.run()
+```
+
+### Advanced Configuration
+
+```python
+# Advanced usage with custom configuration
+config = {
+    'debug': True,
+    'log_level': 'DEBUG'
+}
+
+app = main.Application(config=config)
+app.run()
+```
+
+## 🧪 Testing
+
+Run the test suite:
+
+```bash
+# Run all tests
+pytest
+
+# Run with coverage
+pytest --cov=vmware-cis-run-checks
+
+# Run specific test file
+pytest tests/test_main.py
+```
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md).
+
+### Development Setup
+
+```bash
+# Fork and clone the repository
+git clone https://github.com/YOUR_USERNAME/vmware-cis-run-checks.git
+cd vmware-cis-run-checks
+
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install development dependencies
+pip install -r requirements-dev.txt
+
+# Install pre-commit hooks
+pre-commit install
+```
+
+### Pull Request Process
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes
+4. Add tests for your changes
+5. Ensure all tests pass
+6. Commit your changes (`git commit -m 'Add amazing feature'`)
+7. Push to your branch (`git push origin feature/amazing-feature`)
+8. Open a Pull Request
 
 ## 📄 License
 
-This project is licensed under the MIT License - see [LICENSE](LICENSE) file.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🆘 Support
 
-- 🐛 **Issues**: [GitHub Issues](https://github.com/uldyssian-sh/REPO_NAME/issues)
-- 📖 **Documentation**: [Wiki](https://github.com/uldyssian-sh/REPO_NAME/wiki)
+- 📧 **Email**: [Create an issue](https://github.com/uldyssian-sh/vmware-cis-run-checks/issues/new)
+- 💬 **Discussions**: [GitHub Discussions](https://github.com/uldyssian-sh/vmware-cis-run-checks/discussions)
+- 🐛 **Bug Reports**: [Issue Tracker](https://github.com/uldyssian-sh/vmware-cis-run-checks/issues)
+
+## 🙏 Acknowledgments
+
+- VMware Community
+- Open Source Contributors
+- Enterprise Automation Teams
+- Security Research Community
+
+## 📈 Project Stats
+
+![GitHub repo size](https://img.shields.io/github/repo-size/uldyssian-sh/vmware-cis-run-checks)
+![GitHub code size](https://img.shields.io/github/languages/code-size/uldyssian-sh/vmware-cis-run-checks)
+![GitHub last commit](https://img.shields.io/github/last-commit/uldyssian-sh/vmware-cis-run-checks)
+![GitHub contributors](https://img.shields.io/github/contributors/uldyssian-sh/vmware-cis-run-checks)
 
 ---
 
-⭐ **Star this repository if you find it helpful!**
+**Made with ❤️ by [uldyssian-sh](https://github.com/uldyssian-sh)**
