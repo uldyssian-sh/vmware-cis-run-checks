@@ -5,25 +5,14 @@ on:
     branches: [main]
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-  actions: read
-
 jobs:
   deploy-dev:
     runs-on: ubuntu-latest
-    environment:
-      name: development
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/configure-pages@v4
-        continue-on-error: true
       - name: Build development site
         run: |
-          mkdir _site
+          mkdir -p _site
           cat > _site/index.html << 'EOF'
           <!DOCTYPE html>
           <html>
@@ -54,7 +43,4 @@ jobs:
           </body>
           </html>
           EOF
-      - uses: actions/upload-pages-artifact@v3
-      - name: Deploy to Development
-        id: deployment
-        uses: actions/deploy-pages@v4
+          echo "Development site built successfully"
