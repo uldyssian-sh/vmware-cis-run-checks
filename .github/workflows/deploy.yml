@@ -9,6 +9,7 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  actions: read
 
 jobs:
   deploy-dev:
@@ -19,8 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v4
-        with:
-          enablement: true
+        continue-on-error: true
       - name: Build development site
         run: |
           mkdir _site
