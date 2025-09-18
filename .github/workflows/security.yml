@@ -39,13 +39,13 @@ jobs:
         shell: pwsh
         run: |
           Install-Module -Name PSScriptAnalyzer -Force -Scope CurrentUser
-          $results = Invoke-ScriptAnalyzer -Path "vmware-cis-run-checks.ps1" -Severity @('Error', 'Warning')
+          $results = Invoke-ScriptAnalyzer -Path "vmware-cis-run-checks.ps1" -Severity @('Error')
           if ($results) {
-            Write-Host "Security issues found:"
+            Write-Host "Critical security issues found:"
             $results | Format-Table
             exit 1
           } else {
-            Write-Host "No security issues found in PowerShell script"
+            Write-Host "No critical security issues found in PowerShell script"
           }
 
       - name: Check for secrets

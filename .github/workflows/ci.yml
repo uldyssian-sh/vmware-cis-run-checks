@@ -41,10 +41,10 @@ jobs:
       - name: Validate PowerShell script
         shell: pwsh
         run: |
-          $results = Invoke-ScriptAnalyzer -Path "vmware-cis-run-checks.ps1" -Severity @('Error', 'Warning', 'Information')
-          if ($results | Where-Object Severity -eq 'Error') {
+          $results = Invoke-ScriptAnalyzer -Path "vmware-cis-run-checks.ps1" -Severity @('Error')
+          if ($results) {
             Write-Host "PowerShell errors found:"
-            $results | Where-Object Severity -eq 'Error' | Format-Table
+            $results | Format-Table
             exit 1
           }
           Write-Host "PowerShell validation passed"

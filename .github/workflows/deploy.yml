@@ -51,7 +51,7 @@ jobs:
     <script>document.getElementById('time').textContent = new Date().toLocaleString();</script>
 </body>
 </html>
-HTML
+          HTML
       - uses: actions/upload-pages-artifact@v3
       - name: Deploy to Development
         id: deployment
