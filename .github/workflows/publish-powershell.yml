@@ -1,0 +1,47 @@
+name: Publish to PowerShell Gallery
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PowerShell
+        shell: pwsh
+        run: |
+          Install-Module -Name PowerShellGet -Force -AllowPrerelease -Scope CurrentUser
+          Install-Module -Name PSScriptAnalyzer -Force -Scope CurrentUser
+
+      - name: Validate PowerShell Module
+        shell: pwsh
+        run: |
+          $results = Invoke-ScriptAnalyzer -Path "vmware-cis-run-checks.ps1" -Severity @('Error', 'Warning')
+          if ($results | Where-Object Severity -eq 'Error') {
+            Write-Host "PowerShell errors found, cannot publish:"
+            $results | Where-Object Severity -eq 'Error' | Format-Table
+            exit 1
+          }
+          
+          Test-ModuleManifest -Path "VMware-CIS-Run-Checks.psd1"
+          Write-Host "Module validation passed"
+
+      - name: Publish to PowerShell Gallery
+        shell: pwsh
+        env:
+          PSGALLERY_API_KEY: ${{ secrets.PSGALLERY_API_KEY }}
+        run: |
+          if ($env:PSGALLERY_API_KEY) {
+            Write-Host "Publishing module to PowerShell Gallery..."
+            Publish-Module -Path . -NuGetApiKey $env:PSGALLERY_API_KEY -Verbose
+            Write-Host "Module published successfully"
+          } else {
+            Write-Host "PowerShell Gallery API key not configured, skipping publish"
+          }

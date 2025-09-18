@@ -1,0 +1,52 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          echo "## Changes" > RELEASE_NOTES.md
+          git log --pretty=format:"- %s" $(git describe --tags --abbrev=0 HEAD^)..HEAD >> RELEASE_NOTES.md
+
+      - name: Create Release Archive
+        run: |
+          mkdir -p release
+          cp vmware-cis-run-checks.ps1 release/
+          cp README.md release/
+          cp LICENSE release/
+          cp -r docs release/ 2>/dev/null || true
+          cp -r examples release/ 2>/dev/null || true
+          tar -czf vmware-cis-run-checks-${{ github.ref_name }}.tar.gz -C release .
+          zip -r vmware-cis-run-checks-${{ github.ref_name }}.zip release/
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: RELEASE_NOTES.md
+          files: |
+            vmware-cis-run-checks-${{ github.ref_name }}.tar.gz
+            vmware-cis-run-checks-${{ github.ref_name }}.zip
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

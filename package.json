@@ -1,5 +1,5 @@
 {
-  "name": "vmware-cis-run-checks",
+  "name": "@uldyssian-sh/vmware-cis-run-checks",
   "version": "1.0.0",
   "description": "Enterprise automation and management solution",
   "main": "index.js",

@@ -1,0 +1,21 @@
+# Global owners
+* @uldyssian-sh
+
+# GitHub workflows and configuration
+/.github/ @uldyssian-sh
+/.github/workflows/ @uldyssian-sh
+
+# Security and compliance
+/SECURITY.md @uldyssian-sh
+/.github/dependabot.yml @uldyssian-sh
+
+# Core PowerShell script
+/vmware-cis-run-checks.ps1 @uldyssian-sh
+
+# Documentation
+/README.md @uldyssian-sh
+/docs/ @uldyssian-sh
+
+# Configuration files
+/package.json @uldyssian-sh
+/requirements.txt @uldyssian-sh
