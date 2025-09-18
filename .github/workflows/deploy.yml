@@ -19,6 +19,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v4
+        with:
+          enablement: true
       - name: Build development site
         run: |
           mkdir _site
