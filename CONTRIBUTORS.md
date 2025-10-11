@@ -2,70 +2,30 @@
 
 This project exists thanks to all the people who contribute.
 
-## Core Contributors
+## Core Team
 
 ### Maintainers
 - **uldyssian-sh LT** ([@uldyssian-sh](https://github.com/uldyssian-sh))
   - Email: 25517637+uldyssian-sh@users.noreply.github.com
   - Role: Project Lead & Maintainer
-  - Contributions: Architecture, Security, CI/CD, PowerShell Development
 
-### Automated Contributors
+## Automated Contributors
+
+### Bots & Automation
 - **dependabot[bot]** ([@dependabot](https://github.com/dependabot))
   - Role: Dependency Management
-  - Contributions: Automated security updates, dependency maintenance
+
+- **github-actions[bot]** (GitHub Actions)
+  - Role: CI/CD Automation
 
 - **actions-user** (GitHub Actions)
-  - Role: CI/CD Automation
-  - Contributions: Automated testing, builds, deployments
-
-## Contributing
-
-We welcome contributions from the community! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details on how to get started.
-
-### Ways to Contribute
-
-1. **Code Contributions**
-   - Bug fixes
-   - Feature enhancements
-   - Performance improvements
-   - Security updates
-
-2. **Documentation**
-   - README improvements
-   - Code comments
-   - Usage examples
-   - Troubleshooting guides
-
-3. **Testing**
-   - Unit tests
-   - Integration tests
-   - Security tests
-   - Performance tests
-
-4. **Issue Reporting**
-   - Bug reports
-   - Feature requests
-   - Security vulnerabilities
-   - Documentation issues
-
-### Recognition
-
-All contributors are recognized in this file and in our release notes. We appreciate every contribution, no matter how small!
-
-## Community Guidelines
-
-- Be respectful and inclusive
-- Follow our Code of Conduct
-- Provide constructive feedback
-- Help others learn and grow
-- Maintain high quality standards
+  - Role: Repository Automation
 
 ## Contact
 
-For questions about contributing, please:
-- Open an issue on GitHub
-- Start a discussion in GitHub Discussions
-- Review existing documentation
+- **GitHub Issues**: [Create an issue](../../issues/new)
+- **Email**: 25517637+uldyssian-sh@users.noreply.github.com
 
-Thank you to all our contributors! 🎉
+---
+
+**Thank you to all our contributors!** 🙏
