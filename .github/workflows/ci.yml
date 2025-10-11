@@ -41,21 +41,53 @@ jobs:
       - name: Validate PowerShell script
         shell: pwsh
         run: |
-          $results = Invoke-ScriptAnalyzer -Path "vmware-cis-run-checks.ps1" -Severity @('Error')
-          if ($results) {
-            Write-Host "PowerShell errors found:"
-            $results | Format-Table
+          try {
+            $results = Invoke-ScriptAnalyzer -Path "vmware-cis-run-checks.ps1" -Severity @('Error', 'Warning')
+            if ($results) {
+              Write-Host "PowerShell analysis results:" -ForegroundColor Yellow
+              $results | Format-Table -AutoSize
+              $errors = $results | Where-Object { $_.Severity -eq 'Error' }
+              if ($errors) {
+                Write-Host "Critical errors found, failing build" -ForegroundColor Red
+                exit 1
+              }
+              Write-Host "Warnings found but no critical errors" -ForegroundColor Yellow
+            }
+            Write-Host "PowerShell validation completed successfully" -ForegroundColor Green
+          } catch {
+            Write-Host "PowerShell validation failed: $($_.Exception.Message)" -ForegroundColor Red
             exit 1
           }
-          Write-Host "PowerShell validation passed"
 
       - name: Validate JSON files
         run: |
-          find . -name "*.json" -exec python -m json.tool {} \; > /dev/null
+          echo "Validating JSON files..."
+          json_files=$(find . -name "*.json" -type f)
+          if [ -n "$json_files" ]; then
+            for file in $json_files; do
+              echo "Validating $file"
+              if ! python -m json.tool "$file" > /dev/null 2>&1; then
+                echo "Invalid JSON in $file"
+                exit 1
+              fi
+            done
+            echo "All JSON files are valid"
+          else
+            echo "No JSON files found"
+          fi
 
       - name: Validate YAML files
         run: |
-          python -c "import yaml; import sys; [yaml.safe_load(open(f)) for f in sys.argv[1:]]" .github/workflows/*.yml
+          echo "Validating YAML files..."
+          pip install pyyaml
+          for file in .github/workflows/*.yml; do
+            echo "Validating $file"
+            if ! python -c "import yaml; yaml.safe_load(open('$file'))"; then
+              echo "Invalid YAML in $file"
+              exit 1
+            fi
+          done
+          echo "All YAML files are valid"
 
       - name: Check file permissions
         run: |

@@ -2,9 +2,9 @@
     RootModule = 'vmware-cis-run-checks.ps1'
     ModuleVersion = '1.0.0'
     GUID = 'a1b2c3d4-e5f6-7890-abcd-ef1234567890'
-    Author = 'uldyssian-sh'
-    CompanyName = 'Community'
-    Copyright = '(c) 2024 uldyssian-sh. All rights reserved.'
+    Author = 'uldyssian-sh LT'
+    CompanyName = 'uldyssian-sh'
+    Copyright = '(c) 2024 uldyssian-sh LT. All rights reserved.'
     Description = 'Read-only CIS compliance checks for VMware vSphere 8 environments'
     PowerShellVersion = '5.1'
     

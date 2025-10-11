@@ -158,8 +158,11 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) file for 
 ## Support
 
 - **Issues**: [GitHub Issues](https://github.com/uldyssian-sh/vmware-cis-run-checks/issues)
-- **Documentation**: [Wiki](https://github.com/uldyssian-sh/vmware-cis-run-checks/wiki)
+- **Documentation**: [Project Documentation](docs/README.md)
+- **Examples**: [Usage Examples](examples/README.md)
 - **Security**: [Security Policy](SECURITY.md)
+- **Contributing**: [Contributing Guidelines](CONTRIBUTING.md)
+- **Contributors**: [Contributors List](CONTRIBUTORS.md)
 
 ---
 

@@ -2,54 +2,105 @@
 
 ## Supported Versions
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 1.x.x   | :white_check_mark: |
+| Version | Supported          | Security Updates |
+| ------- | ------------------ | ---------------- |
+| 1.x.x   | :white_check_mark: | :white_check_mark: |
+| < 1.0   | :x:                | :x:              |
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability in this project, please report it by creating a private security advisory on GitHub:
+If you discover a security vulnerability, please report it responsibly:
 
-1. Go to the [Security tab](https://github.com/uldyssian-sh/vmware-cis-run-checks/security)
-2. Click "Report a vulnerability"
-3. Provide detailed information about the vulnerability
+### 🔒 Private Reporting (Preferred)
+1. Use GitHub's [private vulnerability reporting](../../security/advisories/new)
+2. Provide detailed description and reproduction steps
+3. Include potential impact assessment
 
-### What to Include
+### 📧 Alternative Contact
+- **Email**: 25517637+uldyssian-sh@users.noreply.github.com
+- **Subject**: [SECURITY] VMware CIS Run Checks Vulnerability Report
 
-- Description of the vulnerability
-- Steps to reproduce
-- Potential impact
-- Suggested fix (if available)
+### ⏱️ Response Timeline
+- **Initial Response**: Within 24 hours
+- **Status Update**: Within 72 hours
+- **Resolution**: Based on severity (1-30 days)
 
-### Response Timeline
+## 🛡️ Security Features
 
-- **Initial Response**: Within 48 hours
-- **Status Update**: Within 7 days
-- **Resolution**: Within 30 days (depending on complexity)
+### Built-in Security
+- **Read-Only Operations**: No configuration changes, safe for production
+- **No Credential Storage**: Credentials handled securely by PowerCLI
+- **Input Validation**: All parameters validated and sanitized
+- **Secure Connections**: HTTPS/TLS enforced for vCenter communication
+- **Audit Logging**: Comprehensive logging of all operations
 
-## Security Best Practices
+### PowerShell Security
+- **Execution Policy**: RemoteSigned or higher required
+- **Script Signing**: Digital signatures supported
+- **Module Validation**: PSScriptAnalyzer compliance
+- **Error Handling**: Secure error messages without sensitive data
 
-When using this tool:
+## 🔧 Security Best Practices
 
-1. **Credentials**: Never hardcode credentials in scripts
-2. **Network**: Use secure connections (HTTPS/TLS)
-3. **Permissions**: Run with minimal required privileges
-4. **Updates**: Keep PowerCLI and dependencies updated
-5. **Logging**: Secure log files containing sensitive information
+### For Administrators
+- Use service accounts with read-only permissions
+- Enable PowerShell logging and monitoring
+- Regularly update PowerCLI and dependencies
+- Secure log files containing assessment results
+- Implement network segmentation for management traffic
 
-## Security Features
+### For Developers
+- Follow secure coding practices
+- Use signed commits (GPG verification)
+- Run security tests before submitting PRs
+- Keep dependencies updated
+- Report security issues privately
 
-- Read-only operations by design
-- No credential storage
-- Secure PowerCLI configuration
-- Input validation and sanitization
-- Comprehensive audit logging
+### VMware Environment
+- Configure proper vCenter permissions
+- Use certificate-based authentication when possible
+- Enable vCenter audit logging
+- Implement network security controls
+- Regular security assessments
 
-## Compliance
+## 📊 Compliance Standards
 
-This tool supports security compliance frameworks:
+### Security Frameworks
+- ✅ **CIS Controls v8**: Center for Internet Security benchmarks
+- ✅ **NIST CSF**: Cybersecurity Framework alignment
+- ✅ **VMware Security**: Official hardening guidelines
+- ✅ **SOC2 Type II**: Security controls ready
+- ✅ **ISO 27001**: Information security management
 
-- CIS Controls
-- NIST Cybersecurity Framework
-- VMware Security Hardening Guides
-- Enterprise Security Standards
+### Audit & Compliance
+- **Audit Trail**: Complete operation logging
+- **Compliance Reporting**: Structured output formats
+- **Evidence Collection**: Detailed findings documentation
+- **Remediation Guidance**: Actionable security recommendations
+
+## 🚨 Vulnerability Disclosure
+
+### Severity Levels
+- **Critical**: Remote code execution, privilege escalation
+- **High**: Data exposure, authentication bypass
+- **Medium**: Information disclosure, DoS
+- **Low**: Minor security improvements
+
+### Disclosure Timeline
+1. **Day 0**: Vulnerability reported
+2. **Day 1**: Initial triage and acknowledgment
+3. **Day 3**: Detailed analysis and impact assessment
+4. **Day 7-30**: Fix development and testing
+5. **Day 30+**: Public disclosure (coordinated)
+
+## 📞 Security Contacts
+
+- **Security Team**: 25517637+uldyssian-sh@users.noreply.github.com
+- **GitHub Security**: Use private vulnerability reporting
+- **Emergency**: Create critical severity issue
+
+---
+
+**Thank you for helping keep VMware CIS Run Checks secure!** 🙏
+
+*Last updated: December 2024*

@@ -1,19 +1,20 @@
 {
   "name": "@uldyssian-sh/vmware-cis-run-checks",
   "version": "1.0.0",
-  "description": "Enterprise automation and management solution",
-  "main": "index.js",
+  "description": "Enterprise-grade PowerShell script for VMware vSphere 8 CIS compliance assessments",
+  "private": true,
+  "main": "vmware-cis-run-checks.ps1",
   "scripts": {
-    "test": "echo \"No tests specified\" && exit 0",
-    "lint": "echo \"No linting configured\" && exit 0",
-    "build": "echo \"No build process\" && exit 0"
+    "test": "pwsh -Command \"Invoke-ScriptAnalyzer -Path vmware-cis-run-checks.ps1\"",
+    "lint": "pwsh -Command \"Invoke-ScriptAnalyzer -Path vmware-cis-run-checks.ps1 -Severity Warning,Error\"",
+    "validate": "pwsh -Command \"Test-ModuleManifest -Path VMware-CIS-Run-Checks.psd1\""
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/uldyssian-sh/vmware-cis-run-checks.git"
   },
-  "keywords": ["automation", "enterprise", "infrastructure"],
-  "author": "uldyssian-sh",
+  "keywords": ["vmware", "vsphere", "cis", "security", "compliance", "audit", "powershell", "enterprise"],
+  "author": "uldyssian-sh LT <25517637+uldyssian-sh@users.noreply.github.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/uldyssian-sh/vmware-cis-run-checks/issues"

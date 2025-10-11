@@ -25,8 +25,25 @@ jobs:
       - name: Generate changelog
         id: changelog
         run: |
-          echo "## Changes" > RELEASE_NOTES.md
-          git log --pretty=format:"- %s" $(git describe --tags --abbrev=0 HEAD^)..HEAD >> RELEASE_NOTES.md
+          echo "Generating release notes..."
+          echo "## Changes in ${{ github.ref_name }}" > RELEASE_NOTES.md
+          echo "" >> RELEASE_NOTES.md
+          
+          # Get previous tag or use initial commit if no previous tags
+          PREV_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || git rev-list --max-parents=0 HEAD)
+          
+          if [ "$PREV_TAG" != "" ]; then
+            echo "Changes since $PREV_TAG:" >> RELEASE_NOTES.md
+            git log --pretty=format:"- %s" $PREV_TAG..HEAD >> RELEASE_NOTES.md
+          else
+            echo "Initial release" >> RELEASE_NOTES.md
+            git log --pretty=format:"- %s" >> RELEASE_NOTES.md
+          fi
+          
+          echo "" >> RELEASE_NOTES.md
+          echo "**Full Changelog**: https://github.com/${{ github.repository }}/compare/$PREV_TAG...${{ github.ref_name }}" >> RELEASE_NOTES.md
+          
+          echo "Release notes generated successfully"
 
       - name: Create Release Archive
         run: |

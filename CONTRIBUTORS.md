@@ -5,13 +5,19 @@ This project exists thanks to all the people who contribute.
 ## Core Contributors
 
 ### Maintainers
-- **uldyssian-sh** - Project maintainer and primary developer
+- **uldyssian-sh LT** ([@uldyssian-sh](https://github.com/uldyssian-sh))
   - Email: 25517637+uldyssian-sh@users.noreply.github.com
-  - Role: Lead Developer, Security Architect
+  - Role: Project Lead & Maintainer
+  - Contributions: Architecture, Security, CI/CD, PowerShell Development
 
 ### Automated Contributors
-- **dependabot[bot]** - Automated dependency updates
-- **actions-user** - GitHub Actions automation
+- **dependabot[bot]** ([@dependabot](https://github.com/dependabot))
+  - Role: Dependency Management
+  - Contributions: Automated security updates, dependency maintenance
+
+- **actions-user** (GitHub Actions)
+  - Role: CI/CD Automation
+  - Contributions: Automated testing, builds, deployments
 
 ## Contributing
 
