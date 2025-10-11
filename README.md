@@ -166,5 +166,5 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) file for 
 
 ---
 
-**Enterprise VMware Security Assessment Tool**  
+**Enterprise-grade automation solution**  
 *Developed by [uldyssian-sh](https://github.com/uldyssian-sh)*
