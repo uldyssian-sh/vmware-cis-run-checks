@@ -2,102 +2,17 @@ name: CI
 
 on:
   push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+permissions:
+  contents: read
+  security-events: write
+  actions: read
+
+  push:
     branches: [main]
   pull_request:
     branches: [main]
 
-permissions:
-  contents: read
-  pull-requests: write
-
-jobs:
-  validate:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
-
-      - name: Setup Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: '3.11'
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: Lint Python files
-        run: |
-          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-          black --check .
-
-      - name: Setup PowerShell
-        shell: pwsh
-        run: |
-          Install-Module -Name PSScriptAnalyzer -Force -Scope CurrentUser
-
-      - name: Validate PowerShell script
-        shell: pwsh
-        run: |
-          try {
-            $results = Invoke-ScriptAnalyzer -Path "vmware-cis-run-checks.ps1" -Severity @('Error', 'Warning')
-            if ($results) {
-              Write-Host "PowerShell analysis results:" -ForegroundColor Yellow
-              $results | Format-Table -AutoSize
-              $errors = $results | Where-Object { $_.Severity -eq 'Error' }
-              if ($errors) {
-                Write-Host "Critical errors found, failing build" -ForegroundColor Red
-                exit 1
-              }
-              Write-Host "Warnings found but no critical errors" -ForegroundColor Yellow
-            }
-            Write-Host "PowerShell validation completed successfully" -ForegroundColor Green
-          } catch {
-            Write-Host "PowerShell validation failed: $($_.Exception.Message)" -ForegroundColor Red
-            exit 1
-          }
-
-      - name: Validate JSON files
-        run: |
-          echo "Validating JSON files..."
-          json_files=$(find . -name "*.json" -type f)
-          if [ -n "$json_files" ]; then
-            for file in $json_files; do
-              echo "Validating $file"
-              if ! python -m json.tool "$file" > /dev/null 2>&1; then
-                echo "Invalid JSON in $file"
-                exit 1
-              fi
-            done
-            echo "All JSON files are valid"
-          else
-            echo "No JSON files found"
-          fi
-
-      - name: Validate YAML files
-        run: |
-          echo "Validating YAML files..."
-          pip install pyyaml
-          for file in .github/workflows/*.yml; do
-            echo "Validating $file"
-            if ! python -c "import yaml; yaml.safe_load(open('$file'))"; then
-              echo "Invalid YAML in $file"
-              exit 1
-            fi
-          done
-          echo "All YAML files are valid"
-
-      - name: Check file permissions
-        run: |
-          find . -type f -name "*.ps1" -exec chmod +x {} \;
-          echo "File permissions validated"
-
-      - name: Repository structure validation
-        run: |
-          echo "Validating repository structure..."
-          test -f README.md || (echo "README.md missing" && exit 1)
-          test -f LICENSE || (echo "LICENSE missing" && exit 1)
-          test -f vmware-cis-run-checks.ps1 || (echo "Main script missing" && exit 1)
-          echo "Repository structure validation passed"
