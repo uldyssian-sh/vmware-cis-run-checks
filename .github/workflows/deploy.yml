@@ -1,6 +1,12 @@
 name: Deploy Development
 
 on:
+
+permissions:
+  contents: read
+  security-events: write
+  actions: read
+
   push:
     branches: [main]
   workflow_dispatch:
