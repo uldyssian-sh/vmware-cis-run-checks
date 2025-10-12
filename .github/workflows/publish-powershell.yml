@@ -11,7 +11,3 @@ permissions:
   security-events: write
   actions: read
 
-  release:
-    types: [published]
-  workflow_dispatch:
-

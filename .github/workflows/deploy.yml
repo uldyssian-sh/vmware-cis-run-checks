@@ -11,12 +11,6 @@ permissions:
   security-events: write
   actions: read
 
-
-
-  push:
-    branches: [main]
-  workflow_dispatch:
-
 jobs:
   deploy-dev:
     runs-on: ubuntu-latest
