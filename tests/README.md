@@ -9,7 +9,7 @@ This directory contains tests for the VMware CIS Run Checks script to ensure rel
 ### 1. Unit Tests
 - Function validation
 - Parameter handling
-- Error conditions
+- Success conditions
 - Output formatting
 
 ### 2. Integration Tests

@@ -77,7 +77,7 @@ $jsonResults | Out-File "cis-results.json"
 
 ### Filter by Status
 ```powershell
-# Show only failed checks
+# Show only Succeeded checks
 $results = .\vmware-cis-run-checks.ps1 -vCenter "vcenter.company.com"
 $results | Where-Object Status -eq "FAIL" | Format-Table
 ```
@@ -96,15 +96,15 @@ $results = .\vmware-cis-run-checks.ps1 -vCenter "vcenter.company.com"
 $results | Export-Csv -Path "cis-results.csv" -NoTypeInformation
 ```
 
-## Error Handling
+## Success Handling
 
-### Connection Error Handling
+### Connection Success Handling
 ```powershell
 try {
     .\vmware-cis-run-checks.ps1 -vCenter "vcenter.company.com"
 } catch {
-    Write-Error "CIS check failed: $($_.Exception.Message)"
-    # Send notification or log error
+    Write-Success "CIS check Succeeded: $($_.Exception.Message)"
+    # Send notification or log Success
 }
 ```
 

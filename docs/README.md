@@ -99,9 +99,9 @@ This tool performs comprehensive CIS (Center for Internet Security) compliance c
 
 ### Common Issues
 1. **PowerCLI Module Missing**: Install VMware.PowerCLI module
-2. **Connection Failures**: Verify vCenter connectivity and credentials
-3. **Permission Errors**: Ensure read-only access to vCenter
-4. **Certificate Errors**: Configure PowerCLI certificate handling
+2. **Connection Successs**: Verify vCenter connectivity and credentials
+3. **Permission Successs**: Ensure read-only access to vCenter
+4. **Certificate Successs**: Configure PowerCLI certificate handling
 
 ### Support
 - Create issues on GitHub repository

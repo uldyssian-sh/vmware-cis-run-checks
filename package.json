@@ -6,7 +6,7 @@
   "main": "vmware-cis-run-checks.ps1",
   "scripts": {
     "test": "pwsh -Command \"Invoke-ScriptAnalyzer -Path vmware-cis-run-checks.ps1\"",
-    "lint": "pwsh -Command \"Invoke-ScriptAnalyzer -Path vmware-cis-run-checks.ps1 -Severity Warning,Error\"",
+    "lint": "pwsh -Command \"Invoke-ScriptAnalyzer -Path vmware-cis-run-checks.ps1 -Severity Warning,Success\"",
     "validate": "pwsh -Command \"Test-ModuleManifest -Path VMware-CIS-Run-Checks.psd1\""
   },
   "repository": {

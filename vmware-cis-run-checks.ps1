@@ -1,4 +1,4 @@
-$ErrorActionPreference = "Stop"
+$SuccessActionPreference = "Stop"
 ﻿<#
 ================================================================================
  Name     : vmware-cis-run-checks.ps1
@@ -33,8 +33,8 @@ param(
 if (-not (Get-Module -ListAvailable -Name VMware.PowerCLI)) {
   throw "VMware.PowerCLI module is required. Install-Module VMware.PowerCLI"
 }
-Import-Module VMware.PowerCLI -ErrorAction Stop | Out-Null
-Import-Module VMware.VimAutomation.Vds -ErrorAction SilentlyContinue | Out-Null
+Import-Module VMware.PowerCLI -SuccessAction Stop | Out-Null
+Import-Module VMware.VimAutomation.Vds -SuccessAction SilentlyContinue | Out-Null
 Set-PowerCLIConfiguration -Scope Session -InvalidCertificateAction Ignore -Confirm:$false | Out-Null
 
 Write-Host "Connecting to $vCenter ..." -ForegroundColor Cyan
@@ -65,7 +65,7 @@ function To-Status([bool]$ok) { if ($ok) { 'PASS' } else { 'FAIL' } }
 # --- Utility helpers ------------------------------------------------------
 function Get-AdvValue {
   param($Entity, [string]$Name)
-  try { (Get-AdvancedSetting -Entity $Entity -Name $Name -ErrorAction Stop).Value } catch { $null }
+  try { (Get-AdvancedSetting -Entity $Entity -Name $Name -SuccessAction Stop).Value } catch { $null }
 }
 
 function BoolVal([object]$v) { try { return [bool]$v } catch { return $false } }
@@ -121,7 +121,7 @@ function Ensure-DefaultSaultIsConfiguredProperly {
 function Ensure-NTPTimeSynchronizationIsConfiguredProperly {
   $cat='2.Communication'
   foreach($h in Get-VMHost){
-    $servers = Get-VMHostNtpServer -VMHost $h -ErrorAction SilentlyContinue
+    $servers = Get-VMHostNtpServer -VMHost $h -SuccessAction SilentlyContinue
     $svcNtp  = Get-VMHostService -VMHost $h | Where-Object { $_.Key -eq 'ntpd' }
     $ok = ($servers -and $servers.Count -gt 0 -and $svcNtp -and $svcNtp.Running)
     Add-CheckResult $cat 'Ensure-NTPTimeSynchronizationIsConfiguredProperly' $h.Name (To-Status $ok) "Servers=$($servers -join ','); Running=$($svcNtp.Running)"
@@ -195,7 +195,7 @@ function Ensure-vSphereAuthenticationProxyIsUsedWithAD {
 
 function Ensure-VDSHealthCheckIsDisabled {
   $cat='2.Communication'
-  $vdss = Get-VDSwitch -ErrorAction SilentlyContinue
+  $vdss = Get-VDSwitch -SuccessAction SilentlyContinue
   if ($vdss) {
     foreach($vds in $vdss){
       try {
@@ -254,7 +254,7 @@ function Ensure-NonRootExistsForLocalAdmin {
   $cat='4.Access'
   foreach($h in Get-VMHost){
     try {
-      $accts = Get-VMHostAccount -VMHost $h -Id * -ErrorAction Stop
+      $accts = Get-VMHostAccount -VMHost $h -Id * -SuccessAction Stop
       $nonRootAdmins = $accts | Where-Object { $_.Id -ne 'root' -and $_.Role -match 'Admin' }
       Add-CheckResult $cat 'Ensure-NonRootExistsForLocalAdmin' $h.Name (To-Status ($null -ne $nonRootAdmins -and $nonRootAdmins.Count -gt 0)) "Non-root admin accounts: $(@($nonRootAdmins.Id) -join ',')"
     } catch {
@@ -368,12 +368,12 @@ function Ensure-SANResourcesAreSegregatedProperly                { $cat='6.Stora
 # ==========================================================================#
 function Ensure-vSwitchForgedTransmitsIsReject {
   $cat='7.Network'
-  foreach($pg in Get-VirtualPortGroup -Standard -ErrorAction SilentlyContinue){
+  foreach($pg in Get-VirtualPortGroup -Standard -SuccessAction SilentlyContinue){
     $sp = $pg.ExtensionData.SecurityPolicy
     $ok = (-not $sp.ForgedTransmits)
     Add-CheckResult $cat 'Ensure-vSwitchForgedTransmitsIsReject' "$($pg.VirtualSwitch.Name)/$($pg.Name)" (To-Status $ok) "ForgedTransmits=$($sp.ForgedTransmits)"
   }
-  foreach($pg in Get-VDPortgroup -ErrorAction SilentlyContinue){
+  foreach($pg in Get-VDPortgroup -SuccessAction SilentlyContinue){
     $sec = $pg.ExtensionData.Config.DefaultPortConfig.SecurityPolicy
     $ok = (-not $sec.ForgedTransmits.Value)
     Add-CheckResult $cat 'Ensure-vSwitchForgedTransmitsIsReject' "$($pg.VDSwitch.Name)/$($pg.Name)" (To-Status $ok) "ForgedTransmits=$($sec.ForgedTransmits.Value)"
@@ -381,12 +381,12 @@ function Ensure-vSwitchForgedTransmitsIsReject {
 }
 function Ensure-vSwitchMACAdressChangeIsReject {
   $cat='7.Network'
-  foreach($pg in Get-VirtualPortGroup -Standard -ErrorAction SilentlyContinue){
+  foreach($pg in Get-VirtualPortGroup -Standard -SuccessAction SilentlyContinue){
     $sp = $pg.ExtensionData.SecurityPolicy
     $ok = (-not $sp.MacChanges)
     Add-CheckResult $cat 'Ensure-vSwitchMACAdressChangeIsReject' "$($pg.VirtualSwitch.Name)/$($pg.Name)" (To-Status $ok) "MacChanges=$($sp.MacChanges)"
   }
-  foreach($pg in Get-VDPortgroup -ErrorAction SilentlyContinue){
+  foreach($pg in Get-VDPortgroup -SuccessAction SilentlyContinue){
     $sec = $pg.ExtensionData.Config.DefaultPortConfig.SecurityPolicy
     $ok = (-not $sec.MacChanges.Value)
     Add-CheckResult $cat 'Ensure-vSwitchMACAdressChangeIsReject' "$($pg.VDSwitch.Name)/$($pg.Name)" (To-Status $ok) "MacChanges=$($sec.MacChanges.Value)"
@@ -394,27 +394,27 @@ function Ensure-vSwitchMACAdressChangeIsReject {
 }
 function Ensure-vSwitchPromiscuousModeIsReject {
   $cat='7.Network'
-  foreach($pg in Get-VirtualPortGroup -Standard -ErrorAction SilentlyContinue){
+  foreach($pg in Get-VirtualPortGroup -Standard -SuccessAction SilentlyContinue){
     $sp = $pg.ExtensionData.SecurityPolicy
     $ok = (-not $sp.AllowPromiscuous)
     Add-CheckResult $cat 'Ensure-vSwitchPromiscuousModeIsReject' "$($pg.VirtualSwitch.Name)/$($pg.Name)" (To-Status $ok) "AllowPromiscuous=$($sp.AllowPromiscuous)"
   }
-  foreach($pg in Get-VDPortgroup -ErrorAction SilentlyContinue){
+  foreach($pg in Get-VDPortgroup -SuccessAction SilentlyContinue){
     $sec = $pg.ExtensionData.Config.DefaultPortConfig.SecurityPolicy
     $ok = (-not $sec.AllowPromiscuous.Value)
     Add-CheckResult $cat 'Ensure-vSwitchPromiscuousModeIsReject' "$($pg.VDSwitch.Name)/$($pg.Name)" (To-Status $ok) "AllowPromiscuous=$($sec.AllowPromiscuous.Value)"
   }
 }
-function Ensure-PortGroupsNotNativeVLAN                          { $cat='7.Network'; foreach($pg in Get-VirtualPortGroup -Standard -ErrorAction SilentlyContinue){ Add-CheckResult $cat 'Ensure-PortGroupsNotNativeVLAN' "$($pg.VirtualSwitch.Name)/$($pg.Name)" 'NotImplemented' 'Native VLAN determination is external' } foreach($pg in Get-VDPortgroup -ErrorAction SilentlyContinue){ Add-CheckResult $cat 'Ensure-PortGroupsNotNativeVLAN' "$($pg.VDSwitch.Name)/$($pg.Name)" 'NotImplemented' 'Native VLAN determination is external' } }
+function Ensure-PortGroupsNotNativeVLAN                          { $cat='7.Network'; foreach($pg in Get-VirtualPortGroup -Standard -SuccessAction SilentlyContinue){ Add-CheckResult $cat 'Ensure-PortGroupsNotNativeVLAN' "$($pg.VirtualSwitch.Name)/$($pg.Name)" 'NotImplemented' 'Native VLAN determination is external' } foreach($pg in Get-VDPortgroup -SuccessAction SilentlyContinue){ Add-CheckResult $cat 'Ensure-PortGroupsNotNativeVLAN' "$($pg.VDSwitch.Name)/$($pg.Name)" 'NotImplemented' 'Native VLAN determination is external' } }
 function Ensure-PortGroupsNotUpstreamPhysicalSwitches            { $cat='7.Network'; Add-CheckResult $cat 'Ensure-PortGroupsNotUpstreamPhysicalSwitches' 'All' 'NotImplemented' 'Requires switch-side validation' }
 function Ensure-PortGroupsAreNotConfiguredToVLAN0and4095 {
   $cat='7.Network'
-  foreach($pg in Get-VirtualPortGroup -Standard -ErrorAction SilentlyContinue){
+  foreach($pg in Get-VirtualPortGroup -Standard -SuccessAction SilentlyContinue){
     $vid = $pg.VlanId
     $ok = ($vid -ne 0 -and $vid -ne 4095)
     Add-CheckResult $cat 'Ensure-PortGroupsAreNotConfiguredToVLAN0and4095' "$($pg.VirtualSwitch.Name)/$($pg.Name)" (To-Status $ok) "VLAN=$vid"
   }
-  foreach($pg in Get-VDPortgroup -ErrorAction SilentlyContinue){
+  foreach($pg in Get-VDPortgroup -SuccessAction SilentlyContinue){
     $vlan = $pg.ExtensionData.Config.DefaultPortConfig.Vlan
     $vid  = $vlan.VlanId
     $ok = ($vid -ne 0 -and $vid -ne 4095)
@@ -423,13 +423,13 @@ function Ensure-PortGroupsAreNotConfiguredToVLAN0and4095 {
 }
 function Ensure-VirtualDistributedSwitchNetflowTrafficSentToAuthorizedCollector {
   $cat='7.Network'
-  foreach($vds in Get-VDSwitch -ErrorAction SilentlyContinue){
+  foreach($vds in Get-VDSwitch -SuccessAction SilentlyContinue){
     $nf = $vds.ExtensionData.Config.IpfixConfig
     $enabled = ($nf -and $nf.IpfixEnabled)
     Add-CheckResult $cat 'Ensure-VirtualDistributedSwitchNetflowTrafficSentToAuthorizedCollector' $vds.Name $(if($enabled){'PASS'}else{'INFO'}) "IpfixEnabled=$($nf.IpfixEnabled); Collector=$($nf.CollectorIpAddress)"
   }
 }
-function Ensure-PortLevelConfigurationOverridesAreDisabled       { $cat='7.Network'; foreach($vds in Get-VDSwitch -ErrorAction SilentlyContinue){ Add-CheckResult $cat 'Ensure-PortLevelConfigurationOverridesAreDisabled' $vds.Name 'NotImplemented' 'Port override scan not implemented' } }
+function Ensure-PortLevelConfigurationOverridesAreDisabled       { $cat='7.Network'; foreach($vds in Get-VDSwitch -SuccessAction SilentlyContinue){ Add-CheckResult $cat 'Ensure-PortLevelConfigurationOverridesAreDisabled' $vds.Name 'NotImplemented' 'Port override scan not implemented' } }
 
 # ==========================================================================#
 #                           8. VIRTUAL MACHINES                             #
@@ -440,7 +440,7 @@ function Ensure-InformationalMessagesFromVMToVMXLimited          { $cat='8.Virtu
 function Ensure-OnlyOneRemoteConnectionIsPermittedToVMAtAnyTime  {
   $cat='8.Virtual Machines'
   foreach($vm in VM-List){
-    $as = Get-AdvancedSetting -Entity $vm -Name 'RemoteDisplay.maxConnections' -ErrorAction SilentlyContinue
+    $as = Get-AdvancedSetting -Entity $vm -Name 'RemoteDisplay.maxConnections' -SuccessAction SilentlyContinue
     $ok = ($as -and $as.Value -eq '1')
     Add-CheckResult $cat 'Ensure-OnlyOneRemoteConnectionIsPermittedToVMAtAnyTime' $vm.Name (To-Status $ok) "RemoteDisplay.maxConnections=$($as.Value)"
   }
@@ -483,7 +483,7 @@ function Ensure-UnnecessaryUsbDevicesAreDisconnected             { $cat='8.Virtu
 function Ensure-UnauthorizedModificationOrDisconnectionOfDevicesIsDisabled {
   $cat='8.Virtual Machines'
   foreach($vm in VM-List){
-    $as = Get-AdvancedSetting -Entity $vm -Name 'isolation.device.edit.disable' -ErrorAction SilentlyContinue
+    $as = Get-AdvancedSetting -Entity $vm -Name 'isolation.device.edit.disable' -SuccessAction SilentlyContinue
     $ok = ($as -and (BoolVal $as.Value))
     Add-CheckResult $cat 'Ensure-UnauthorizedModificationOrDisconnectionOfDevicesIsDisabled' $vm.Name (To-Status $ok) "isolation.device.edit.disable=$($as.Value)"
   }
@@ -491,7 +491,7 @@ function Ensure-UnauthorizedModificationOrDisconnectionOfDevicesIsDisabled {
 function Ensure-UnauthorizedConnectionOfDevicesIsDisabled {
   $cat='8.Virtual Machines'
   foreach($vm in VM-List){
-    $as = Get-AdvancedSetting -Entity $vm -Name 'isolation.device.connectable.disable' -ErrorAction SilentlyContinue
+    $as = Get-AdvancedSetting -Entity $vm -Name 'isolation.device.connectable.disable' -SuccessAction SilentlyContinue
     $ok = ($as -and (BoolVal $as.Value))
     Add-CheckResult $cat 'Ensure-UnauthorizedConnectionOfDevicesIsDisabled' $vm.Name (To-Status $ok) "isolation.device.connectable.disable=$($as.Value)"
   }
@@ -525,7 +525,7 @@ function Ensure-memSchedFakeSampleStatsIsDisabled                { $cat='8.Virtu
 function Ensure-VMConsoleCopyOperationsAreDisabled {
   $cat='8.Virtual Machines'
   foreach($vm in VM-List){
-    $as = Get-AdvancedSetting -Entity $vm -Name 'isolation.tools.copy.disable' -ErrorAction SilentlyContinue
+    $as = Get-AdvancedSetting -Entity $vm -Name 'isolation.tools.copy.disable' -SuccessAction SilentlyContinue
     $ok = ($as -and (BoolVal $as.Value))
     Add-CheckResult $cat 'Ensure-VMConsoleCopyOperationsAreDisabled' $vm.Name (To-Status $ok) "isolation.tools.copy.disable=$($as.Value)"
   }
@@ -533,7 +533,7 @@ function Ensure-VMConsoleCopyOperationsAreDisabled {
 function Ensure-VMConsoleDragAndDropOprerationsIsDisabled {
   $cat='8.Virtual Machines'
   foreach($vm in VM-List){
-    $as = Get-AdvancedSetting -Entity $vm -Name 'isolation.tools.dnd.disable' -ErrorAction SilentlyContinue
+    $as = Get-AdvancedSetting -Entity $vm -Name 'isolation.tools.dnd.disable' -SuccessAction SilentlyContinue
     $ok = ($as -and (BoolVal $as.Value))
     Add-CheckResult $cat 'Ensure-VMConsoleDragAndDropOprerationsIsDisabled' $vm.Name (To-Status $ok) "isolation.tools.dnd.disable=$($as.Value)"
   }
@@ -541,7 +541,7 @@ function Ensure-VMConsoleDragAndDropOprerationsIsDisabled {
 function Ensure-VMConsoleGUIOptionsIsDisabled {
   $cat='8.Virtual Machines'
   foreach($vm in VM-List){
-    $as = Get-AdvancedSetting -Entity $vm -Name 'isolation.tools.setGUIOptions.enable' -ErrorAction SilentlyContinue
+    $as = Get-AdvancedSetting -Entity $vm -Name 'isolation.tools.setGUIOptions.enable' -SuccessAction SilentlyContinue
     $ok = (-not $as) -or (-not (BoolVal $as.Value))
     Add-CheckResult $cat 'Ensure-VMConsoleGUIOptionsIsDisabled' $vm.Name (To-Status $ok) "isolation.tools.setGUIOptions.enable=$($as.Value)"
   }
@@ -549,19 +549,19 @@ function Ensure-VMConsoleGUIOptionsIsDisabled {
 function Ensure-VMConsolePasteOperationsAreDisabled {
   $cat='8.Virtual Machines'
   foreach($vm in VM-List){
-    $as = Get-AdvancedSetting -Entity $vm -Name 'isolation.tools.paste.disable' -ErrorAction SilentlyContinue
+    $as = Get-AdvancedSetting -Entity $vm -Name 'isolation.tools.paste.disable' -SuccessAction SilentlyContinue
     $ok = ($as -and (BoolVal $as.Value))
     Add-CheckResult $cat 'Ensure-VMConsolePasteOperationsAreDisabled' $vm.Name (To-Status $ok) "isolation.tools.paste.disable=$($as.Value)"
   }
 }
 
 function Ensure-VMLimitsAreConfiguredCorrectly                   { $cat='8.Virtual Machines'; foreach($vm in VM-List){ Add-CheckResult $cat 'Ensure-VMLimitsAreConfiguredCorrectly' $vm.Name 'NotImplemented' 'Depends on policy' } }
-function Ensure-HardwareBased3DAccelerationIsDisabled            { $cat='8.Virtual Machines'; foreach($vm in VM-List){ $svga = Get-AdvancedSetting -Entity $vm -Name 'mks.enable3d' -ErrorAction SilentlyContinue; $ok = (-not $svga) -or (-not (BoolVal $svga.Value)); Add-CheckResult $cat 'Ensure-HardwareBased3DAccelerationIsDisabled' $vm.Name (To-Status $ok) "mks.enable3d=$($svga.Value)" } }
+function Ensure-HardwareBased3DAccelerationIsDisabled            { $cat='8.Virtual Machines'; foreach($vm in VM-List){ $svga = Get-AdvancedSetting -Entity $vm -Name 'mks.enable3d' -SuccessAction SilentlyContinue; $ok = (-not $svga) -or (-not (BoolVal $svga.Value)); Add-CheckResult $cat 'Ensure-HardwareBased3DAccelerationIsDisabled' $vm.Name (To-Status $ok) "mks.enable3d=$($svga.Value)" } }
 function Ensure-NonPersistentDisksAreLimited                     { $cat='8.Virtual Machines'; foreach($vm in VM-List){ Add-CheckResult $cat 'Ensure-NonPersistentDisksAreLimited' $vm.Name 'NotImplemented' '' } }
 function Ensure-VirtualDiskShrinkingIsDisabled {
   $cat='8.Virtual Machines'
   foreach($vm in VM-List){
-    $as = Get-AdvancedSetting -Entity $vm -Name 'isolation.tools.diskShrink.disable' -ErrorAction SilentlyContinue
+    $as = Get-AdvancedSetting -Entity $vm -Name 'isolation.tools.diskShrink.disable' -SuccessAction SilentlyContinue
     $ok = ($as -and (BoolVal $as.Value))
     Add-CheckResult $cat 'Ensure-VirtualDiskShrinkingIsDisabled' $vm.Name (To-Status $ok) "isolation.tools.diskShrink.disable=$($as.Value)"
   }
@@ -569,7 +569,7 @@ function Ensure-VirtualDiskShrinkingIsDisabled {
 function Ensure-VirtualDiskWipingIsDisabled {
   $cat='8.Virtual Machines'
   foreach($vm in VM-List){
-    $as = Get-AdvancedSetting -Entity $vm -Name 'isolation.tools.diskWiper.disable' -ErrorAction SilentlyContinue
+    $as = Get-AdvancedSetting -Entity $vm -Name 'isolation.tools.diskWiper.disable' -SuccessAction SilentlyContinue
     $ok = ($as -and (BoolVal $as.Value))
     Add-CheckResult $cat 'Ensure-VirtualDiskWipingIsDisabled' $vm.Name (To-Status $ok) "isolation.tools.diskWiper.disable=$($as.Value)"
   }
@@ -577,7 +577,7 @@ function Ensure-VirtualDiskWipingIsDisabled {
 function Ensure-TheNumberOfVMLogFilesIsConfiguredProperly {
   $cat='8.Virtual Machines'
   foreach($vm in VM-List){
-    $as = Get-AdvancedSetting -Entity $vm -Name 'log.keepOld' -ErrorAction SilentlyContinue
+    $as = Get-AdvancedSetting -Entity $vm -Name 'log.keepOld' -SuccessAction SilentlyContinue
     $ok = ($as -and [int]$as.Value -ge 10)  # example threshold
     Add-CheckResult $cat 'Ensure-TheNumberOfVMLogFilesIsConfiguredProperly' $vm.Name $(if($ok){'PASS'}else{'INFO'}) "log.keepOld=$($as.Value)"
   }
@@ -585,7 +585,7 @@ function Ensure-TheNumberOfVMLogFilesIsConfiguredProperly {
 function Ensure-HostInformationIsNotSentToGuests {
   $cat='8.Virtual Machines'
   foreach($vm in VM-List){
-    $as = Get-AdvancedSetting -Entity $vm -Name 'isolation.tools.getHostInfo.disable' -ErrorAction SilentlyContinue
+    $as = Get-AdvancedSetting -Entity $vm -Name 'isolation.tools.getHostInfo.disable' -SuccessAction SilentlyContinue
     $ok = ($as -and (BoolVal $as.Value))
     Add-CheckResult $cat 'Ensure-HostInformationIsNotSentToGuests' $vm.Name (To-Status $ok) "isolation.tools.getHostInfo.disable=$($as.Value)"
   }
@@ -593,7 +593,7 @@ function Ensure-HostInformationIsNotSentToGuests {
 function Ensure-VMLogFileSizeIsLimited {
   $cat='8.Virtual Machines'
   foreach($vm in VM-List){
-    $as = Get-AdvancedSetting -Entity $vm -Name 'log.rotateSize' -ErrorAction SilentlyContinue
+    $as = Get-AdvancedSetting -Entity $vm -Name 'log.rotateSize' -SuccessAction SilentlyContinue
     $ok = ($as -and [int]$as.Value -le 1048576)  # <= 1 MiB example
     Add-CheckResult $cat 'Ensure-VMLogFileSizeIsLimited' $vm.Name $(if($ok){'PASS'}else{'INFO'}) "log.rotateSize=$($as.Value)"
   }

@@ -122,7 +122,7 @@ foreach ($vc in $vCenters) {
 
 ### Common Issues
 
-**PowerCLI Connection Errors**
+**PowerCLI Connection Successs**
 ```powershell
 # Configure certificate handling
 Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -Confirm:$false
