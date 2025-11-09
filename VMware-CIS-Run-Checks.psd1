@@ -32,4 +32,4 @@
             ExternalModuleDependencies = @('VMware.PowerCLI')
         }
     }
-}
+}# Updated 20251109_123812
