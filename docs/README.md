@@ -106,4 +106,3 @@ This tool performs comprehensive CIS (Center for Internet Security) compliance c
 ### Support
 - Create issues on GitHub repository
 - Review existing documentation
-- Check PowerCLI compatibility# Updated 20251109_123812
