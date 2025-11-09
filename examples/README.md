@@ -116,3 +116,4 @@ Connect-VIServer -Server "vcenter.company.com" -Credential $credential
 .\vmware-cis-run-checks.ps1 -vCenter "vcenter.company.com"
 ```# Updated Sun Nov  9 12:49:56 CET 2025
 # Updated Sun Nov  9 12:52:24 CET 2025
+# Updated Sun Nov  9 12:56:30 CET 2025
