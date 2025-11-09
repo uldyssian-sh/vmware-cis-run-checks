@@ -2,8 +2,6 @@
 
 [![CI](https://github.com/uldyssian-sh/vmware-cis-run-checks/workflows/CI/badge.svg)](https://github.com/uldyssian-sh/vmware-cis-run-checks/actions)
 [![Security](https://github.com/uldyssian-sh/vmware-cis-run-checks/workflows/Security%20Scan/badge.svg)](https://github.com/uldyssian-sh/vmware-cis-run-checks/actions)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![PowerShell](https://img.shields.io/badge/PowerShell-5.1%2B-blue.svg)](https://docs.microsoft.com/en-us/powershell/)
 
 ## Overview
 
