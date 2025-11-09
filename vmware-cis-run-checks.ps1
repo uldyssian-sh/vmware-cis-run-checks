@@ -1,3 +1,4 @@
+$ErrorActionPreference = "Stop"
 ﻿<#
 ================================================================================
  Name     : vmware-cis-run-checks.ps1
