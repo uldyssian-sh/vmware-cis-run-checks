@@ -114,4 +114,4 @@ try {
 $credential = Get-Credential
 Connect-VIServer -Server "vcenter.company.com" -Credential $credential
 .\vmware-cis-run-checks.ps1 -vCenter "vcenter.company.com"
-```
+```# Updated Sun Nov  9 12:49:56 CET 2025
