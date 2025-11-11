@@ -1,5 +1,11 @@
 # VMware CIS Run Checks
 
+[![License](https://img.shields.io/github/license/uldyssian-sh/vmware-cis-run-checks?style=flat-square)](LICENSE)
+[![Status](https://img.shields.io/badge/status-active-brightgreen?style=flat-square)](#)
+[![Languages](https://img.shields.io/github/languages/count/uldyssian-sh/vmware-cis-run-checks?style=flat-square)](#)
+[![Size](https://img.shields.io/github/repo-size/uldyssian-sh/vmware-cis-run-checks?style=flat-square)](#)
+[![Security Scan](https://img.shields.io/badge/security-scanned-green?style=flat-square)](#)
+
 [![CI](https://github.com/uldyssian-sh/vmware-cis-run-checks/workflows/CI/badge.svg)](https://github.com/uldyssian-sh/vmware-cis-run-checks/actions)
 [![Security](https://github.com/uldyssian-sh/vmware-cis-run-checks/workflows/Security%20Scan/badge.svg)](https://github.com/uldyssian-sh/vmware-cis-run-checks/actions)
 
@@ -25,6 +31,12 @@ Enterprise-grade PowerShell script for performing comprehensive CIS (Center for 
 
 ```powershell
 # Required PowerShell version
+
+[![License](https://img.shields.io/github/license/uldyssian-sh/vmware-cis-run-checks?style=flat-square)](LICENSE)
+[![Status](https://img.shields.io/badge/status-active-brightgreen?style=flat-square)](#)
+[![Languages](https://img.shields.io/github/languages/count/uldyssian-sh/vmware-cis-run-checks?style=flat-square)](#)
+[![Size](https://img.shields.io/github/repo-size/uldyssian-sh/vmware-cis-run-checks?style=flat-square)](#)
+[![Security Scan](https://img.shields.io/badge/security-scanned-green?style=flat-square)](#)
 $PSVersionTable.PSVersion  # Must be 5.1 or higher
 
 # Install VMware PowerCLI
