@@ -104,3 +104,6 @@ wheels/
 
 # Cache files
 *.cache
+
+# Security - Sensitive Files
+config.json
